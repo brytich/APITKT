@@ -26,6 +26,21 @@ app.post('/entreprises', (req,res) => {
     entreprises.push(req.body)
     res.status(200).json(entreprises)})
 
+app.put('/entreprises/:id', (req,res) => {
+        const id = parseInt(req.params.id)    
+        let entreprise = entreprises.find(entreprise => entreprise.id === id)
+            entreprise.name =req.body.name,
+            entreprise.sector =req.body.sector,    
+            res.status(200).json(entreprise)
+})
+    
+app.delete('/entreprises/:id', (req,res) => {
+        const id = parseInt(req.params.id)
+        let entreprise = entreprises.find(entreprise => entreprise.id === id)
+        entreprises.splice(entreprises.indexOf(entreprise),1)
+        res.status(200).json(entreprises)
+})
+
 app.listen(PORT, () =>
     console.log(`En route sur ${HOST}:${PORT}`)
 )
